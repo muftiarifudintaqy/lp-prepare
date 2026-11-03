@@ -1,0 +1,17 @@
+# File backup / sementara (backup asli disimpan di /root/backups, bukan di sini)
+*.bak
+*.bak.*
+*.sebelum*
+*.orig
+*.old
+*.tmp
+*~
+*.swp
+# Arsip
+*.zip
+# Sistem
+.DS_Store
+Thumbs.db
+# Rahasia (jangan pernah masuk repo)
+.env
+*.env
