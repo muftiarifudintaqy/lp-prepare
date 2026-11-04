@@ -132,7 +132,7 @@ var HARGA = 68549;   // harga di gambar LP (Rp68.549)
     a.addEventListener("click", function (e) {
       if (!window.fbq) return;                                     // Pixel tidak termuat: langsung ke Shopee
       var kirim = function () {
-        var data = { content_name: "Leafit", currency: "IDR", value: HARGA };
+        var data = { content_name: "Leafit", content_type: "product", currency: "IDR", value: HARGA };   // [4 Nov] + content_type
         fbq("track", "AddToWishlist", data); fbq("track", "InitiateCheckout", data);
       };
       if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) { kirim(); return; }   // buka di tab baru: biarkan

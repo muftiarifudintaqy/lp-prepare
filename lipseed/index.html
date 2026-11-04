@@ -68,7 +68,7 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '39307323425577961');
 fbq('track', 'PageView');
-fbq('track', 'ViewContent', { content_name: 'Lipseed Oil', content_type: 'product' });
+fbq('track', 'ViewContent', { content_name: 'Lipseed Oil', content_type: 'product', currency: 'IDR', value: 63700 });   // [4 Nov] + harga LP
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=39307323425577961&ev=PageView&noscript=1"/></noscript>
 </head>
@@ -123,7 +123,7 @@ var HARGA = 63700;   // harga spesial di gambar LP (Rp63.700)
   a.addEventListener("click", function (e) {
     if (!window.fbq) return;                                     // Pixel tidak termuat: langsung ke Shopee
     var kirim = function () {
-      var data = { content_name: "Lipseed Oil", currency: "IDR", value: HARGA };
+      var data = { content_name: "Lipseed Oil", content_type: "product", currency: "IDR", value: HARGA };   // [4 Nov] + content_type
       fbq("track", "AddToWishlist", data); fbq("track", "InitiateCheckout", data);
     };
     if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) { kirim(); return; }   // buka di tab baru: biarkan
