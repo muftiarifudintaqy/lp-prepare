@@ -115,39 +115,16 @@ fbq('track', 'ViewContent', { content_name: 'Leafit', content_type: 'product', c
 <script>
 var LINK_SHOPEE = "https://s.shopee.co.id/50a3Lkf6DQ";
 var PIXEL_ID = "1103375365643225";
-var HARGA = 68549;   // harga di gambar LP (Rp68.549)
 
 (function () {
   // Tautan pendek Shopee sudah membawa penanda sumbernya sendiri dan
   // menolak parameter tambahan, jadi dipakai apa adanya.
-  var tujuan = LINK_SHOPEE, sedangPergi = false;
-  // [29 Okt, Kak Adila] klik beli (tombol & gambar) = InitiateCheckout. [3 Nov] + AddToWishlist (dulu saat buka halaman),
-  // masing-masing 1x per klik. Event dikirim dulu,
-  // pindah ke Shopee ±300 ms kemudian supaya request Pixel tidak terputus saat halaman ditinggal (sama dengan LP Lipseed & Tone Up).
-  window.addEventListener("pageshow", function () { sedangPergi = false; });   // kembali dari Shopee (tombol back): tombol aktif lagi
+  var tujuan = LINK_SHOPEE;
+  // [5 Nov, tim ads] klik beli (tombol & gambar) TIDAK mengirim event Pixel lagi (AddToWishlist & InitiateCheckout dihapus;
+  // event diatur tim ads lewat Event Setup Tool di Events Manager). Tombol = link biasa, langsung ke Shopee.
   ["cta", "ctaGambar"].forEach(function (id) {
     var a = document.getElementById(id);
-    if (!a) return;
-    a.href = tujuan;
-    a.addEventListener("click", function (e) {
-      if (!window.fbq) return;                                     // Pixel tidak termuat: langsung ke Shopee
-      var kirim = function () {
-        var data = { content_name: "Leafit", content_type: "product", currency: "IDR", value: HARGA };   // [4 Nov] + content_type
-        fbq("track", "AddToWishlist", data); fbq("track", "InitiateCheckout", data);
-      };
-      if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) { kirim(); return; }   // buka di tab baru: biarkan
-      e.preventDefault();
-      if (sedangPergi) return; sedangPergi = true;                 // klik dobel / dua tombol: event sekali
-      var pergi = function () { location.href = tujuan; };
-      // fbevents.js belum selesai dimuat (klik cepat / sinyal lemah): event di antrean akan hilang saat pindah
-      // halaman, jadi tunggu Pixel siap maks 1,5 dtk; tetap belum siap -> langsung ke Shopee.
-      var mulai = Date.now();
-      (function tunggu() {
-        if (window.fbq && window.fbq.callMethod) { kirim(); setTimeout(pergi, 300); return; }
-        if (Date.now() - mulai > 1500) { kirim(); pergi(); return; }
-        setTimeout(tunggu, 50);
-      })();
-    });
+    if (a) a.href = tujuan;
   });
 })();
 </script>
